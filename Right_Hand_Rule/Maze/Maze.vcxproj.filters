@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Main">
-      <UniqueIdentifier>{706da39b-bea5-4afc-b502-41accd7117d4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Board">
-      <UniqueIdentifier>{4738ebce-2c22-4f72-85b1-6618f8ed78cd}</UniqueIdentifier>
+      <UniqueIdentifier>{b3d15ad2-e441-4eb6-b68e-de0e4138b6a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{02cc18bb-63f5-4c07-8175-fac06d090e0d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -15,10 +15,10 @@
     <ClCompile Include="pch.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="ConsoleHelper.cpp">
+    <ClCompile Include="Board.cpp">
       <Filter>Board</Filter>
     </ClCompile>
-    <ClCompile Include="Board.cpp">
+    <ClCompile Include="ConsoleHelper.cpp">
       <Filter>Board</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
@@ -32,10 +32,10 @@
     <ClInclude Include="Types.h">
       <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="ConsoleHelper.h">
+    <ClInclude Include="Board.h">
       <Filter>Board</Filter>
     </ClInclude>
-    <ClInclude Include="Board.h">
+    <ClInclude Include="ConsoleHelper.h">
       <Filter>Board</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
