@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Player.h"
 #include "Board.h"
+#include <stack>
 
 void Player::Init(Board* board)
 {
@@ -68,6 +69,35 @@ void Player::Init(Board* board)
 			}*/
 		}
 	}
+	// 오른손 법칙 개선
+	// 앞서 배운 스택을 이용해 오른손 법칙을 적용한 미로 길찾기 알고리즘을 개선해보자.
+	// 길을 찾을 때 막다른 길이면 돌아 나오던 부분을 스택을 이용하면 알 수 있다.
+	// 돌아가는 길이 스택의 가장 위에 존재하는 데이터와 같으면 돌아간다는 의미이기 때문이다.이러한 성격을 활용하여 경로 배열을 다듬으면 다음과 같이 개선이 된다.
+	// 스택으로 오른쪽으로만 꺾어서 가던 길에서 막힌 길을 되돌아오는 부분을 없앴다.
+	// 스택으로 걸어 왔던 길을 스택으로 추적을 해준다. 그리고 가야될 길을 현재 스택 최상위에 있는 원소와 같은지 비교
+	stack<Pos> s;
+	for (int i = 0; i < _path.size() - 1; i++)
+	{
+		if (s.empty() == false && s.top() == _path[i + 1])
+			s.pop();
+		else
+			s.push(_path[i]);
+	}
+
+	// 목적지 도착
+	if (_path.empty() == false)
+		s.push(_path.back());
+
+	vector<Pos> path;
+	while (s.empty() == false)
+	{
+		path.push_back(s.top());
+		s.pop();
+	}
+
+	std::reverse(path.begin(), path.end());
+
+	_path = path;
 }
 
 void Player::Update(uint64 deltaTick)
