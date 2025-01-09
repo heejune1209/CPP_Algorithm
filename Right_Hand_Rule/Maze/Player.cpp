@@ -86,7 +86,7 @@ void Player::Init(Board* board)
 
 	// 목적지 도착
 	if (_path.empty() == false)
-		s.push(_path.back());
+		s.push(_path.back()); // 마지막 좌표를 따로 넣어줌
 
 	vector<Pos> path;
 	while (s.empty() == false)

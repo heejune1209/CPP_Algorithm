@@ -35,7 +35,7 @@ public:
                 newData[i] = _container[index];
             }
             // 교체
-            _container.swap(newData);
+            _container.swap(newData); // swap은 인수로 집어넣는 벡터의 요소들로 교체하는 함수
             _front = 0;
             _back = _size;
         }
