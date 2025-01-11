@@ -58,6 +58,7 @@ void CreateGraph_2()
 {
     // 연결된 목록을 따로 관리
     // adjacent[n] -> n번째 정점과 연결된 정점 목록
+    // 인접 리스트: 연결된 정점만 저장 → 메모리 효율적, 간선 탐색이 빠름.
     vector<vector<int>> adjacent(6);
     adjacent[0] = { 1, 3 };
     adjacent[1] = { 0, 2, 3 };
@@ -93,6 +94,7 @@ void CreateGraph_3()
     // 행렬을 이용한 그래프 표현 (2차원 배열)
     // 메모리 소모가 심하지만, 빠른 접근이 가능하다.
     // 간선이 많은 경우 이점이 있다.
+    // 인접 행렬: 메모리 사용 큼, 특정 연결 관계 확인이 빠름 (O(1)).
 
     vector<vector<bool>> adjacent(6, vector<bool>(6, false));
     // [x][x][x][x][x][x]
