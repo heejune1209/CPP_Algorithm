@@ -27,16 +27,30 @@ void CreateGraph()
     vertices.resize(6);
     adjacent = vector<vector<int>>(6);
     // 인접 리스트
-    /*adjacent[0].push_back(1);
-    adjacent[0].push_back(3);
+    adjacent[0].push_back(1); // 0번 정점이 1번 정점과 연결
+    adjacent[0].push_back(3); // adjacent[0]이 {1, 3}이라는 리스트를 가지게 된다는 뜻
     adjacent[1].push_back(0);
     adjacent[1].push_back(2);
     adjacent[1].push_back(3);
     adjacent[3].push_back(4);
-    adjacent[5].push_back(4);*/
+    adjacent[5].push_back(4);
+    // 인덱스를 추가하는 것이 아니라 실제 정점 번호를 추가한다고 이해하면 된다.
 
-    // 인접 행렬
+    // 인접 리스트를 다르게 표현한 것.
+    /*
     adjacent = vector<vector<int>>
+    {
+        {1, 3},   // 0번 정점: 1번, 3번 정점과 연결
+        {0, 2, 3},// 1번 정점: 0번, 2번, 3번 정점과 연결
+        {},        // 2번 정점: 연결 없음
+        {4},      // 3번 정점: 4번 정점과 연결
+        {},        // 4번 정점: 연결 없음
+        {4}       // 5번 정점: 4번 정점과 연결
+    };
+    */
+    // 인접 행렬
+    // 인접 행렬에서는 1은 두 정점이 연결되어 있음을 나타낸다
+    /*adjacent = vector<vector<int>>
     {
         {0,1,0,1,0,0},
         {1,0,1,1,0,0},
@@ -44,7 +58,9 @@ void CreateGraph()
         {0,0,0,0,1,0},
         {0,0,0,0,0,0},
         {0,0,0,0,1,0},
-    };
+    };*/
+    // 행렬의 인덱스가 정점 번호를 나타낸다
+    // 결론적으로 인접 리스트의 정점 번호와 인접 행렬의 인덱스는 동일한 그래프를 표현하기 위한 다른 방식일 뿐이다.
 }
 
 // DFS
@@ -57,22 +73,22 @@ void Dfs(int here) // here은 입구를 뜻함
     // 인접 리스트 ver
     // 모든 인접 정점을 순회한다.
     // there는 목적지
-    /*for (int i = 0; i < adjacent[here].size(); i++)
+    for (int i = 0; i < adjacent[here].size(); i++)
     {
         int there = adjacent[here][i];
         if (visited[there] == false)
             Dfs(there);
-    }*/
+    }
 
     // 인접 행렬 ver
-    for (int there = 0; there < 6; there++)
-    {
-        if (adjacent[here][there] == 0)
-            continue;
-        // 아직 방문하지 않은 곳이 있으면 방문한다.
-        if (visited[there] == false)
-            Dfs(there);
-    }
+    //for (int there = 0; there < 6; there++)
+    //{
+    //    if (adjacent[here][there] == 0)
+    //        continue;
+    //    // 아직 방문하지 않은 곳이 있으면 방문한다.
+    //    if (visited[there] == false)
+    //        Dfs(there);
+    //}
 
     
 

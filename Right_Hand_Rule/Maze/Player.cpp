@@ -139,7 +139,7 @@ void Player::Bfs()
 		q.pop();
 
 		// 방문!
-		if (pos == dest)
+		if (pos == dest) // 목적지에 다 왔으면 break
 			break;
 
 		for (int32 dir = 0; dir < 4; dir++)
@@ -174,9 +174,9 @@ void Player::Bfs()
 		pos = parent[pos];
 	}
 
-	std::reverse(_path.begin(), _path.end());
+	std::reverse(_path.begin(), _path.end()); 
 
-	// 기회가 되면 이걸 안보고 만들어보기\
+	// 기회가 되면 이걸 안보고 만들어보기
 	// 코드를 외우는것이 아니라 공책을 들고 펜으로 알고리즘을 똑같이 어떤 알고리즘
 	// 인지 완벽히 이해했는지를 펜으로 그려봐서 흐름을 그려보는것이 중요.
 	// 경우에 따라서 알고리즘같은 경우에는 항상 코드로 만드는게 아니라 진짜 동작을 잘 이해했는지

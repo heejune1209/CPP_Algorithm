@@ -90,6 +90,7 @@ void CreateGraph_2()
 // 연결된 목록을 따로 관리
 void CreateGraph_3()
 {
+    // 인접 행렬 방식
     // 읽는 방법 : adjacent[from][to]
     // 행렬을 이용한 그래프 표현 (2차원 배열)
     // 메모리 소모가 심하지만, 빠른 접근이 가능하다.
@@ -118,6 +119,7 @@ void CreateGraph_3()
 // 방향 + 가중치
 void CreateGraph_4()
 {
+    // 인접 행렬 방식
     vector<vector<int>> adjacent(6, vector<int>(6, -1));
     adjacent[0][1] = 15;
     adjacent[0][3] = 35;
