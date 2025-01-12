@@ -21,7 +21,9 @@ public:
 
 private:
 	void		RightHand();
-	void		 Bfs();
+	void		
+		Bfs();
+	void	    AStar();
 private:
 	Pos			_pos = {};
 	int32		_dir = DIR_UP;

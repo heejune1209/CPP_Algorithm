@@ -69,7 +69,7 @@ int main()
     while (s.empty() == false)
     {
         // 최상위 원소
-        int data = s.top();
+        int data = s.top(); // top은 스택의 가장 위(마지막)에 있는 요소를 반환한다
         // 최상위 원소 삭제
         s.pop();
 
