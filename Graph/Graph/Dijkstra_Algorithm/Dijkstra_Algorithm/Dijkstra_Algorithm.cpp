@@ -52,7 +52,8 @@ void Dijkstra(int here)
     // 또한 최소 비용(거리)을 저장할 수 있는 동적 배열과 부모 노드의 경로를 알 수 있는 동적 배열을 선언해주었다.
 
     // 초기화
-    discovered.push_back(VertexCost{ here,0 });
+    discovered.push_back(VertexCost{ here,0 }); // 중괄호 초기화를 사용한 객체 생성 방식
+    // 생성자가 정의되어 있다면 VertexCost(here, 0)과 같은 방식도 사용 가능
     best[here] = 0;
     parent[here] = here;
 
@@ -116,8 +117,97 @@ void Dijkstra(int here)
         // 문제가 없다면 discovered에 새 구조체를 만들어 추가하고 최소 비용 배열의 값을 수정해준다.
         // 부모 노드 정보를 저장하는 배열도 수정해준다.이러한 과정을 모든 노드를 탐색할 때까지 진행하고 프로그램은 종료된다.
     }
-
 }
+
+// 인접 리스트와 pair로 vertexcost를 관리한 버전
+//vector<Vertex> vertices;
+//vector<vector<pair<int, int>>> adjacent;
+//
+//void createGraph()
+//{
+//    vertices.resize(6);
+//    //adjacent = vector<vector<int>>(6, vector<int>(6, -1));
+//
+//    /*adjacent[0][1] = 15;
+//    adjacent[0][3] = 35;
+//    adjacent[1][0] = 15;
+//    adjacent[1][2] = 5;
+//    adjacent[1][3] = 10;
+//    adjacent[3][4] = 5;
+//    adjacent[5][4] = 5;*/
+//
+//    // 인접 리스트 버전
+//    adjacent.resize(6);
+//    adjacent[0].push_back({ 1,15 });
+//    adjacent[0].push_back({ 3,35 });
+//    adjacent[1].push_back({ 0,15 });
+//    adjacent[1].push_back({ 2,5 });
+//    adjacent[1].push_back({ 3,10 });
+//    adjacent[3].push_back({ 4,5 });
+//    adjacent[5].push_back({ 4,5 });
+//}
+//void Dijkstra(int here)
+//{
+//    /*struct VertexCost
+//    {
+//        int vertex;
+//        int cost;
+//    };*/
+//
+//    list<pair<int, int>> discovered; // first : vertex, second : cost
+//    vector<int> best(6, INT32_MAX);
+//    vector<int> parent(6, -1);
+//
+//    discovered.push_back({ here,0 });
+//    best[here] = 0;
+//    parent[here] = here;
+//
+//    while (discovered.empty() == false)
+//    {
+//        // 최단거리 찾기
+//        // 가장 좋은 후보를 찾는다
+//
+//        list<pair<int, int>>::iterator bestit;
+//        int bestcost = INT32_MAX;
+//
+//        for (auto it = discovered.begin(); it != discovered.end(); it++)
+//        {
+//            if (it->second < bestcost)
+//            {
+//                bestcost = it->second;
+//                bestit = it;
+//            }
+//        }
+//
+//        // 다음 노드 선정
+//        // 최적의 경로를 찾았다면 다음 노드로 변경, 발견 목록에서 삭제
+//
+//        int cost = bestit->second;
+//        here = bestit->first;
+//        discovered.erase(bestit);
+//
+//        // 노드 탐색
+//        if (best[here] < cost)
+//            continue;
+//
+//        for (auto edge : adjacent[here])
+//        {
+//            int there = edge.first;
+//            int cost = edge.second;
+//            // 더 좋은 경로를 찾았다면 스킵
+//            int nextcost = best[here] + cost;
+//            if (nextcost > best[there])
+//                continue;
+//
+//            discovered.push_back({ there, nextcost });
+//            best[there] = nextcost;
+//            parent[there] = here;
+//
+//        }
+//
+//    }
+//
+//}
 int main()
 {
     CreateGraph();
