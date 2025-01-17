@@ -52,7 +52,15 @@ void Dijkstra(int here)
     // 또한 최소 비용(거리)을 저장할 수 있는 동적 배열과 부모 노드의 경로를 알 수 있는 동적 배열을 선언해주었다.
 
     // 초기화
-    discovered.push_back(VertexCost{ here,0 }); // 중괄호 초기화를 사용한 객체 생성 방식
+    // rvalue를 이용한 이동 연산
+    discovered.push_back(VertexCost{ here,0 }); // 중괄호 초기화를 사용한 객체 생성 방식, 이동 연산으로 lvalue를 이용한 방법보다 더 효율적임
+
+    // lvalue를 전달 했을 경우
+    // VertexCost vc = { here, 0 };
+    // discovered.push_back(vc);  // lvalue 전달
+    // push_back(const T& value)가 호출, 복사 비용이 발생
+
+    // 이것이 되는 이유는 push_back엔 오른값, 즉 임시값을 넣어야하기 때문에 VertexCost{ here,0 } 이라는 임시 객체를 생성해서 넣어줬기 떄문에 가능하다
     // 생성자가 정의되어 있다면 VertexCost(here, 0)과 같은 방식도 사용 가능
     best[here] = 0;
     parent[here] = here;

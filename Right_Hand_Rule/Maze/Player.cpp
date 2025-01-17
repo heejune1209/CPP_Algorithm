@@ -271,7 +271,7 @@ void Player::AStar()
 	// parent는 부모 노드의 정보를 저장하기 위해 사용한다. 해당 맵을 통해 최단 경로를 역으로 추적하여 구할 수 있다.
 
 	// OpenList (발견)
-	priority_queue<PQNode, vector<PQNode>, greater<PQNode>> pq;
+	priority_queue<PQNode, vector<PQNode>, greater<PQNode>> pq; // 오름차순, 숫자가 작은 순으로 출력
 	// priority_queue, 즉 우선순위 큐는 오픈 리스트(Open List)로 클로즈 리스트와는 다르게 발견한 노드들의 정보를 저장한다. 
 	// 아직 탐색 전 노드들이라는 것에 주의해야한다. 
 	// 해당 큐에는 노드의 좌표 뿐만 아니라 A* 알고리즘에 사용할 최종 점수 F, 거리 비용 G도 함께 저장된다.

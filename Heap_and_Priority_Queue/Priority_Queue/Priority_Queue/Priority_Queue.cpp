@@ -30,6 +30,11 @@ public:
 			int parent = (now - 1) / 2;
 			if (_predicate(_heap[now], _heap[parent]))
 				break;
+			// _predicate가 std::less<T>일 때(최대 힙일때)
+			// _predicate(a, b) => a < b
+
+			// _predicate가 std::greater<T>일 때(최소 힙일때)
+			// _predicate(a, b) => a > b
 
 			// 데이터 교체
 			::swap(_heap[now], _heap[parent]);
@@ -91,7 +96,7 @@ private:
 int main()
 {
     // priority_queue<int, vector<int>, greater<int>> pq;	// 최소 힙(min heap), 이러면 작은 순서대로 반환된다
-    priority_queue<int> pq; // 최대 힙(max heap) , // Container = vector<int>, Predicate = less<int>
+	priority_queue<int> pq; // 최대 힙(max heap) , // Container = vector<int>, Predicate = less<int>
 
     pq.push(100);
     pq.push(300);
