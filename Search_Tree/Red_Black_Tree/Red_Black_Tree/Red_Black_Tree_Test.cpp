@@ -27,9 +27,17 @@ int main()
 	bst.Print();
 	this_thread::sleep_for(1s);
 	//return 0; // 삽입까지 실행
+
+	// 삽입까지 했을때 트리 상황:
+	//     [20]
+	//  [10]   [30]
+	//        [25]
 	bst.Delete(20);
 	bst.Print();
 	this_thread::sleep_for(1s);
+	//     [25]
+	//  [10]   [30]
+
 
 	bst.Delete(10);
 	bst.Print();

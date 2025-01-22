@@ -12,8 +12,7 @@ void SetCursorPosition(int x, int y)
 }
 
 void BinarySearchTree::Print(Node* node, int x, int y)
-{
-	if (node == nullptr)
+{	if (node == nullptr)
 		return;
 
 	SetCursorPosition(x, y);
@@ -116,29 +115,37 @@ Node* BinarySearchTree::Next(Node* node)
 
 void BinarySearchTree::Insert(int key)
 {
+	// 새로운 노드 할당
 	Node* newNode = new Node();
+	// 새로운 노드의 키값 저장
 	newNode->key = key;
 
+	// 루트 노드가 없으면 새로운 노드가 루트
 	if (_root == nullptr)
 	{
 		_root = newNode;
 		return;
 	}
 
+	// node를 만들어 준후 루트 노트 저장
 	Node* node = _root;
+	// parent 노드 널 초기화
 	Node* parent = nullptr;
 
+	// 루트 노드로 부터 시작해서 대소 비교를 통해 아래로 내려감
 	while (node)
 	{
 		parent = node;
-		if (key < node->key)
+ 		if (key < node->key)
 			node = node->left;
 		else
 			node = node->right;
 	}
 
+	// 새로운 노드의 부모를 저장
 	newNode->parent = parent;
 
+	// 새로운 노드와 직속부모와의 키값 대소 비교에 따른 새로운 노드의 위치 결정
 	if (key < parent->key)
 		parent->left = newNode;
 	else
@@ -182,12 +189,24 @@ void BinarySearchTree::Delete(Node* node)
 // 노드 삭제는 자식이 0~1개일 때와 2개일 때로 나뉜다.
 
 // 0~1개일 때는 자식 노드와 해당 노드의 위치를 바꿔주고 연결 정보만 수정해주면 쉽게 완료된다.
+// 만약 25번을 삭제한다면, 26번과 자리를 체인지 하고 연결 정보만 수정하면됨.
+
 // 만약, 자식 노드가 없어 바꾸려는 노드가 null일 때에는 부모 노드의 연결 정보를 null로 바꿔주기 때문에 예외처리 없이 사용 가능하다.
 
 // 자식 노드가 2개 모두 존재한다면, 삭제하려는 노드보다 다음으로 큰 수의 노드를 찾아 위치를 바꿔주고 
 // 해당 노드를 삭제시키는 작업을 반복하면 트리가 알아서 정리될 것이다.
 
-
+// 그러니까 자식 노드가 없는 경우에 
+//   [20]
+// [10]  [30]
+//[9]  [25]  [40]
+//        [26]  [50]
+// 현재 이 상태에서 26을 삭제한다고 한다면 Replace함수에서 
+// 부모 노드의 연결 정보를 null로 바꿔주고 26이 삭제가 된다
+//   [20]
+// [10]  [30]
+//[9]  [25]  [40]
+//             [50]
 
 // u 서브트리를 v 서브트리로 교체, 그리고 delete u
 void BinarySearchTree::Replace(Node* u, Node* v)

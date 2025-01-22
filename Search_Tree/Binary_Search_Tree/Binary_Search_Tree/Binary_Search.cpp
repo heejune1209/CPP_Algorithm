@@ -8,7 +8,6 @@ using namespace std;
 
 // 이진 탐색 트리
 
-// 이진 탐색(Binary Searc)
 // 이진 탐색(Binary Search)는 전체 데이터를 순회하는 방법이 아닌 조건을 정해 특정한 값의 위치를 찾는 알고리즘이다. 
 // 정렬된 데이터라는 제한적인 상황이 존재하고, 중간값을 임의의 값으로 선택하여 대소 비교를 통해 탐색 범위를 좁혀나가는 방식이다.
 
@@ -78,7 +77,7 @@ int main()
     bst.Insert(50);
     bst.Insert(9);
 
-    bst.Delete(20);
+    bst.Delete(26);
 
     bst.Print();
     //bst.Delete(26);

@@ -106,6 +106,7 @@ Node* BinarySearchTree::Next(Node* node)
 	if (node->right != _nil)
 		return Min(node->right);
 
+	// 아래에 있는 nil 노드에서 위로 올라가는 기능
 	Node* parent = node->parent;
 
 	while (parent != _nil && node == parent->right)
@@ -130,6 +131,7 @@ void BinarySearchTree::Insert(int key)
 	Node* node = _root;
 	Node* parent = _nil;
 
+	// 대소비교를 통해 새로운 노드의 부모에게 연결 (자식 -> 부모)
 	while (node != _nil)
 	{
 		parent = node;
@@ -141,6 +143,7 @@ void BinarySearchTree::Insert(int key)
 
 	newNode->parent = parent;
 
+	// 대소비교를 통해 새로운 노드의 부모에게 연결 (부모 -> 자식)
 	if (parent == _nil)
 		_root = newNode;
 	if (key < parent->key)
@@ -181,9 +184,11 @@ void BinarySearchTree::InsertFixup(Node* node)
 	
 	/*node->parent->color = Color::Black;
 	node->parent->parent->color = Color::Red;
-	LeftRotate(node->parent->parent);*/
+	RightRotate(node->parent->parent);*/
 	
-	while (node->parent->color == Color::Red)
+	// Insert함수에서 이 반복문으로 처음 오면 노드의 색깔이 레드인 상태인데 노드의 부모의 색깔도 레드인지 체크
+	// 즉, 더블 레드인지 체크. 더블 레드이면 고쳐주는 기능
+	while (node->parent->color == Color::Red) 
 	{
 		// 이런상황이었다
 		//      [pp(B)]
@@ -214,7 +219,8 @@ void BinarySearchTree::InsertFixup(Node* node)
 				//   [pp(B)]
 				//[p(R)]   [u(B)]
 				//   [n(R)]
-				
+				// Triangle 타입이기 때문에 부모노드를 기준으로 회전을 시키면 된다
+
 				// left rotation을 하면
 				//      [pp(B)]
 				//   [p(R)]   [u(B)]
@@ -444,7 +450,10 @@ void BinarySearchTree::DeleteFixup(Node* node)
 				//                    [s(R)]
 				//                      [far(B)]
 				// 그 이후 case6 실행
-				if (s->right->color == Color::Black)
+
+				// 이 조건문에 온거면 형제 노드의 왼쪽 자식과 오른쪽 자식중에 색깔이 빨간색이 있거나
+				// 둘다 빨간색인 경우
+				if (s->right->color == Color::Black) 
 				{
 					s->left->color = Color::Black;
 					s->color = Color::Red;
@@ -514,7 +523,7 @@ void BinarySearchTree::DeleteFixup(Node* node)
 	x->color = Color::Black;
 }
 
-// u 서브트리를 v 서브트리로 교체
+// u 서브트리를 v 서브트리로 교체 그리고 u 삭제
 void BinarySearchTree::Replace(Node* u, Node* v)
 {
 	if (u->parent == _nil)
@@ -546,6 +555,18 @@ void BinarySearchTree::Replace(Node* u, Node* v)
 //      [x]
 //   [1]   [y]
 //       [2] [3]
+
+//             [30]
+//     [10 == x]   [nil]
+//          [y ==20]
+
+//             [30]
+//     [10 == x]   [nil]
+//          [nil]
+
+//             [30]
+//     [20 == y]   [nil]
+// [10 == x]  [nil]
 
 // 그리고 LeftRotate하면 원상복귀 된다
 void BinarySearchTree::LeftRotate(Node* x)
@@ -580,6 +601,24 @@ void BinarySearchTree::LeftRotate(Node* x)
 //      [x]
 //   [1]   [y]
 //       [2] [3]
+
+
+//         [30 == y]
+//     [20 == x]   [nil]
+//  [10]  [nil]
+
+//         [30 == y]
+//     [20 == x]   [nil]
+//  [10]  [nil]
+
+//         [30 == y]
+//     [nil]   [nil]
+//  [10]  [nil]
+
+//         [20 == X]
+//     [10]      [30 == y]
+//  [nil] [nil] [nil]   [nil] 
+
 
 void BinarySearchTree::RightRotate(Node* y)
 {
