@@ -24,6 +24,9 @@ public:
 	void			Init(int32 size, Player* player);
 	void			Render();
 
+	void			GenerateMap_Kruskal();
+	void			GenerateMap_Prim();
+
 	void			GenerateMap();
 	TileType		GetTileType(Pos pos);
 	ConsoleColor	GetTileColor(Pos pos);
