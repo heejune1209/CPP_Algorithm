@@ -26,7 +26,7 @@ using namespace std;
 // map : Red-Black Tree 구조로 이루어져있음
 // - 추가/탐색/삭제 O(log N)
 // 맵은 레드블랙 트리 소위 균형 이진 트리 구조로 만들어져 있어 가지고 트리 구조로 관리를 하고 그러면서 이제 데이터가 추가되거나 삭제가 되면은 이진 트리를
-// 유지를 하지만 거기다 균형을 또 맞춰 줘 가지고 한쪽으로 쏠리는 걸 예방하는 형태로 되어 있다 그리고 시간 복잡도는 이제 로그 n 을 따른다.
+// 유지를 하지만 거기다 균형을 또 맞춰 줘 가지고 한쪽으로 쏠리는 걸 예방하는 형태로 되어 있다 그리고 시간 복잡도는 이제 logN 을 따른다.
 // 하지만 속도적인 측면에서 보면은 해시맵이 훨씬 더 빠르다
 // 해시맵은 메모리를 내주고 그 대신 속도를 취하는 방법이기 때문에 속도 측면에서 보면은 이제 충돌이 일어나지 않는다고 가정을 하면 해시맵이 훨씬 더 빠르다라는 부분까지만 
 // 일단은 꼭 인지를 하고 그거를 대답할 수 있어야 됩니다
@@ -38,7 +38,7 @@ using namespace std;
 // hash map (unordered map)
 // - 추가/탐색/삭제 O(1)
 
-// 레드 블랙 트리처럼 정렬을 해주고 데이터가 크게 따라가지고 맞워주고 하는 개념은 아니고 원하는 키값을 굉장히 빠르게 찾아주는데만 최적화가 되어있다
+// 레드 블랙 트리처럼 정렬을 해주고 데이터가 크게 따라가지고 맞춰주고 하는 개념은 아니고 원하는 키값을 굉장히 빠르게 찾아주는데만 최적화가 되어있다
 
 // 메모리를 내주고 속도를 취한다
 
@@ -136,20 +136,33 @@ void TestHashTableChaining()
     vector<vector<User>> users; // 테이블 구조를 이차 배열로
     users.resize(1000); // 버킷 사이즈를 1000개로
 
-    const int userId = 123456789;
-    int key = (userId % 1000);  // hash < 고유번호
+    const int userId1 = 123456789; // 첫 번째 유저 ID
+    const int userId2 = 223456789; // 두 번째 유저 ID (충돌 발생)
+    
+    int key1 = userId1 % 1000;  // 첫 번째 해시값
+    int key2 = userId2 % 1000;  // 두 번째 해시값 (key1과 동일한 값을 가지도록 설정)
 
-    // 123456789번 유저 정보 세팅
-    users[key].push_back(User{ userId, "heejune" });
+    // 유저 정보 세팅 (충돌 처리)
+    users[key1].push_back(User{ userId1, "heejune" });
+    users[key2].push_back(User{ userId2, "heejune2" });
 
-    // 123456789번 유저 이름은?
-    vector<User>& bucket = users[key];
-    for (User& user : bucket)
+    // 첫 번째 유저 이름 출력
+    vector<User>& bucket1 = users[key1];
+    cout << "Bucket for key " << key1 << ":" << endl;
+    for (User& user : bucket1)
     {
-        if (user.userId == userId)
+        cout << "UserId: " << user.userId << ", Username: " << user.username << endl;
+    }
+
+    // 두 번째 유저 이름 확인 (같은 버킷에 저장되어 있는지 확인)
+    vector<User>& bucket2 = users[key2];
+    cout << "Retrieving users from bucket with collisions:" << endl;
+    for (User& user : bucket2)
+    {
+        if (user.userId == userId2)
         {
             string name = user.username;
-            cout << name << endl;
+            cout << "Found userId: " << user.userId << " with username: " << name << endl;
         }
     }
 }

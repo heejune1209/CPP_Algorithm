@@ -58,7 +58,7 @@ void SelectionSort(vector<int>& v)
     // 시간 복잡도는 O(N^2)
     for (int i = 0; i < n - 1; i++)
     {
-        int bestIdx = i;
+        int bestIdx = i; // 가장 작은 값의 인덱스
         for (int j = i + 1; j < n; j++)
         {
             if (v[j] < v[bestIdx])
@@ -114,9 +114,9 @@ int main()
 {
     vector<int> v{ 1, 5, 3, 4, 2 };
 
-    BubbleSort(v);
+    //BubbleSort(v);
     cout << "--------------------------------\n";
-    SelectionSort(v);
+    //SelectionSort(v);
     cout << "--------------------------------\n";
     InsertionSort(v);
 }

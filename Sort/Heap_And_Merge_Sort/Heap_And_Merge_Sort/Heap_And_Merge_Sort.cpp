@@ -25,7 +25,7 @@ void HeapSort(vector<int>& v)
     // O(Nlog N)
     while (!pq.empty())
     {
-        v.push_back(pq.top());
+        v.push_back(pq.top()); // top: 최우선 요소 반환
         pq.pop();
     }
 
@@ -95,7 +95,9 @@ vector<int> Merge(vector<int> a, vector<int> b)
     return temp;
 }
 
-// MergeResult : 여기서 배열의 해당 범위만큼 정렬 및 값 복사가 이뤄진다
+// MergeResult 
+// left에서 right 구간의 두 부분(왼쪽: left ~ mid, 오른쪽: mid + 1 ~ right)을 정렬하면서 병합하는 함수입니다.
+// 병합 과정에서 임시 벡터(temp)를 사용해 정렬된 값을 저장하고, 마지막에 원래 벡터 v로 복사합니다.
 // O(Nlog N) : 데이터가 N개가 있다고 한다면 N번을 비교해서 정렬해 줄테니까 기본적으로 N이 붙는다. 그리고 데이터가 많아지면 많아질수록 둘둘 비교하는부분이 계속 늘어나게 되고
 // 합쳐지는것도 2배씩 데이터가 증가하는 형태로 합쳐지기 때문에 logN이다
 void MergeResult(vector<int>& v, int left, int mid, int right)
@@ -105,6 +107,7 @@ void MergeResult(vector<int>& v, int left, int mid, int right)
     int rightIdx = mid + 1;
 
     vector<int> temp;
+    // 두 부분 배열을 병합:
     while (leftIdx <= mid && rightIdx <= right)
     {
         if (v[leftIdx] <= v[rightIdx])
@@ -119,8 +122,8 @@ void MergeResult(vector<int>& v, int left, int mid, int right)
         }
     }
 
-    // 왼쪽이 먼저 끝났으면 오른쪽 나머지 데이터 복사
-    if (leftIdx > mid)
+    // 나머지 값 처리 : 한쪽 배열의 값이 모두 temp에 복사되었을 때, 다른 쪽 배열에 남아 있는 값을 추가로 복사합니다.
+    if (leftIdx > mid)  // 왼쪽 배열이 끝났으면 오른쪽 배열의 나머지 값 복사, 이 조건문을 통과한거면 왼쪽 배열의 값이 복사가 되었다는 뜻
     {
         while (rightIdx <= right)
         {
@@ -128,7 +131,7 @@ void MergeResult(vector<int>& v, int left, int mid, int right)
             rightIdx++;
         }
     }
-    else
+    else // 오른쪽 배열이 끝났으면 왼쪽 배열의 나머지 값 복사
     {
         while (leftIdx <= mid)
         {
@@ -140,35 +143,39 @@ void MergeResult(vector<int>& v, int left, int mid, int right)
     for (int i = 0; i < temp.size(); i++)
         v[left + i] = temp[i];
 }
-// MergeSort : 분할하고 정렬하라는 큰 알고리즘
+// MergeSort
+// 배열을 재귀적으로 나누는 분할(division) 역할을 합니다.
+// 배열을 절반으로 쪼개며, 더 이상 나눌 수 없을 때까지 재귀 호출합니다.
+// 각 분할된 부분에 대해 MergeResult를 호출하여 병합합니다.
 void MergeSort(vector<int>& v, int left, int right)
 {
     cout << "Now MS(" << left << ", " << right << ")" << endl;
+    // 더 이상 나눌 수 없는 경우(원소가 하나)
     if (left >= right)
     {
         cout << "Return MS(" << left << ", " << right << ")" << endl;
         return;
     }
 
-    int mid = (left + right) / 2;
-    MergeSort(v, left, mid); 
-    MergeSort(v, mid + 1, right);
+    int mid = (left + right) / 2;  // 중간 지점 계산
+    MergeSort(v, left, mid);       // 왼쪽 부분 재귀 호출
+    MergeSort(v, mid + 1, right);  // 오른쪽 부분 재귀 호출
 
-    MergeResult(v, left, mid, right);
+    MergeResult(v, left, mid, right);  // 병합
 }
 
 int main()
 {
-    //vector<int> v{ 1, 5, 3, 2, 4, 6, 8, 7 };
+    vector<int> v{ 1, 5, 3, 2, 4, 6, 8, 7 };
     
-    vector<int> v;
+    /*vector<int> v;
 
     srand(time(0));
     for (int i = 0; i < 50; i++)
     {
         int randValue = rand() % 100;
         v.push_back(randValue);
-    }
+    }*/
     
 
     // HeapSort(v);
