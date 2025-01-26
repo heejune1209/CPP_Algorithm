@@ -74,7 +74,7 @@ public:
         if (u == _parent[u])
             return u;
 
-        return Find(_parent[u]);
+        return Find(_parent[u]); // 루트 노드의 값을 반환
     }
 
     // 서로 공통적인 요소를 가지고 있지 않는 트리 구조의 데이터들을 하나로 합쳐주는 Union 연산이다. 
@@ -149,11 +149,12 @@ public:
 
         // rank[u] <= rank[v] 보장됨
 
+        // u가 v 산하로
         _parent[u] = v;
 
         // 두 트리의 높이가 동일하다면 한 트리가 산하로 들어가면서 높이가 1 증가하게 되니 랭크의 값도 1 증가
         if (_rank[u] == _rank[v])
-            _rank[v]++;
+            _rank[v]++; // v의 랭크를 1올림
     }
 private:
     vector<int> _parent;
@@ -171,6 +172,7 @@ private:
 
 int main()
 {
+    // 7의 부모를 1로 만들어버림
     /*NaiveDisjointSet team(10);
     team.Merge(7, 1);
     int teamid = team.Find(7);

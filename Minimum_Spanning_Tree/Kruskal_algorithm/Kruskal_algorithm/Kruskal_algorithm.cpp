@@ -36,6 +36,11 @@ using namespace std;
 // - 연결이 되어있다면, 즉 같은 루트 노드를 가지고 있다면 사이클이 발생하므로 병합하지 않는다.
 // - 연결이 되어있지 않다면 Union 연산을 실행한다.
 
+// 크루스칼 알고리즘 시간 복잡도
+// union-find 알고리즘은 시간복잡도가 상수이므로 간선들을 가중치 기준으로 정렬하는 데 걸리는 시간에 의존한다.
+// 그리고 간선을 가중치 기준으로 정렬하는데 소요되는 시간은 일반적으로 O(ElogE)이다. (E는 간선개수)
+// 즉, 크루스칼 알고리즘의 시간 복잡도는 간선을 정렬한 뒤 Union-Find 연산을 수행하기 때문에 시간 복잡도는 O(ElogE) 이다.
+
 struct Vertex
 {
 
@@ -119,6 +124,7 @@ int Kruskal(vector<CostEdge>& selected)
 
     vector<CostEdge> edges;
 
+    // 인접 행렬 인덱스 용도로 u,v를 만들어주고 해당 인덱스 값에 adjacent의 cost정보를 가지고 와서 CostEdge의 벡터에 cost, u,v 정보를 넣어준다
     for (int u = 0; u < adjacent.size(); u++)
     {
         for (int v = 0; v < adjacent[u].size(); v++)
